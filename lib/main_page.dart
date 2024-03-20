@@ -48,6 +48,7 @@ class _MainPageState extends State<MainPage> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     // Save an list of strings to 'items' key.
     await prefs.setStringList('todoList', todoList);
+    setState(() {});
   }
 
   void readLocalData() async {
@@ -131,11 +132,18 @@ class _MainPageState extends State<MainPage> {
       body: todoList.isEmpty
           ? Center(child: Text('Empty Todo List', style: TextStyle(fontWeight: FontWeight.bold),))
           : TodoList(todoList: todoList, updateLocalData: updateLocalData,),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blueGrey[900],
-        shape: CircleBorder(),
-          onPressed: onItemClicked,
-        child: Icon(Icons.add, color: Colors.white),
+      /* floatingActionButton: ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey[900]),
+          onPressed: (){}, child: Text('Add', style: TextStyle(color: Colors.white),)) */
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          // FloatingActionButton(onPressed: (){}, child: Icon(Icons.edit, color: Colors.white), shape: CircleBorder(), backgroundColor: Colors.blueGrey[900]),
+          // SizedBox(height: 10,),
+          // FloatingActionButton(onPressed: (){}, child: Icon(Icons.delete, color: Colors.white), shape: CircleBorder(), backgroundColor: Colors.blueGrey[900]),
+          // SizedBox(height: 10,),
+          FloatingActionButton(onPressed: onItemClicked, child: Icon(Icons.add, color: Colors.white), shape: CircleBorder(), backgroundColor: Colors.blueGrey[900]),
+        ],
       ),
     );
   }
